@@ -25,9 +25,9 @@ contacts = {
 #   Github: @bey
 
 for person, info in sorted(contacts.items()):
-    print "{0}\'s contact info:".format(person)
+    print "{0}\'s contact info:".format(person)  # Prints person's name
     for site, handle in info.items():
-        print "\t{0}: {1}".format(site,handle)
+        print "\t{0}: {1}".format(site,handle)  # Prints person's contact info
 
 # Goal 2:  Display that information as an HTML table.
 
@@ -43,6 +43,18 @@ for person, info in sorted(contacts.items()):
 # <td> Github: @shannonturner </td>
 # </tr>
 # </table>
+
+with open('contacts.html','w') as html_file:
+    for person, info in sorted(contacts.items()):
+        html_file.write("<table border=\"1\">\n")
+        html_file.write("<tr>\n")
+        html_file.write("<td colspan=\"2\"> {0} </td>\n".format(person))
+        html_file.write("</tr>\n")
+        html_file.write("<tr>\n")
+        for site, handle in info.items():
+            html_file.write("<td> {0}: {1} </td>\n".format(site,handle))
+        html_file.write("</tr>\n")
+        html_file.write("</table>\n")
 
 # ...
 
