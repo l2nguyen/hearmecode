@@ -44,6 +44,10 @@ for person, info in sorted(contacts.items()):
 # </tr>
 # </table>
 
+# ...
+
+# Goal 3: Write all of the HTML out to a file called contacts.html and open it in your browser.
+
 with open('contacts.html','w') as html_file:
     for person, info in sorted(contacts.items()):
         html_file.write("<table border=\"1\">\n")
@@ -56,8 +60,31 @@ with open('contacts.html','w') as html_file:
         html_file.write("</tr>\n")
         html_file.write("</table>\n")
 
-# ...
-
-# Goal 3: Write all of the HTML out to a file called contacts.html and open it in your browser.
-
 # Goal 4: Instead of reading in the contacts from the dictionary above, read them in from contacts.csv, which you can find in lesson_07_(files).
+import csv
+
+# open csv file
+csvfile = csv.DictReader(open('contacts.csv'))
+
+contacts2 = {}  # create empty dictionary
+
+# Generates a nested dictionary with all the info for each state
+for row in csvfile:
+    key = row.pop('Name')
+    if key in contacts2:
+        pass
+    contacts2[key] = row
+
+print contacts2
+
+with open('contacts.html','w') as html_file:
+    for person, info in sorted(contacts2.items()):
+        html_file.write("<table border=\"1\">\n")
+        html_file.write("<tr>\n")
+        html_file.write("<td colspan=\"2\"> {0} </td>\n".format(person))
+        html_file.write("</tr>\n")
+        html_file.write("<tr>\n")
+        for site, handle in info.items():
+            html_file.write("<td> {0}: {1} </td>\n".format(site,handle))
+        html_file.write("</tr>\n")
+        html_file.write("</table>\n")
